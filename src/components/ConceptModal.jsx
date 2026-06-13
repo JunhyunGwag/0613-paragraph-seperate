@@ -3,33 +3,37 @@ import React from 'react';
 function ConceptModal({ onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2 style={{ color: 'var(--primary-dark)', marginTop: 0 }}>💡 문단이란 무엇일까요?</h2>
-        
-        <div style={{ background: '#f3f4f6', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-          <strong>문단</strong>은 몇 개의 문장이 모여서 하나의 중심 생각을 나타내는 덩어리입니다.
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+          <h2 className="heading">💡 문단이란 무엇일까요?</h2>
+          <button 
+            onClick={onClose} 
+            style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: 'var(--ink-muted)' }}
+          >
+            ×
+          </button>
         </div>
-
-        <h3>✅ 문단을 나누는 방법</h3>
-        <ul style={{ lineHeight: '1.8' }}>
-          <li>시간이나 장소가 바뀔 때 나눕니다.</li>
-          <li>글쓴이의 생각이나 느낌이 바뀔 때 나눕니다.</li>
-          <li>새로운 인물이 등장하거나 화제가 바뀔 때 나눕니다.</li>
-        </ul>
-
-        <div style={{ background: '#fffbeb', padding: '15px', borderLeft: '4px solid #f59e0b', margin: '20px 0' }}>
-          <strong>예시:</strong><br/>
-          (문단1) 오늘 아침에는 비가 내렸다. 우산을 쓰고 학교에 갔다.<br/>
-          <span style={{ color: '#f59e0b', fontWeight: 'bold' }}>-- 장소가 학교에서 교실로 바뀜 --</span><br/>
-          (문단2) 교실에 도착하니 친구들이 벌써 와 있었다. 우리는 재미있게 놀았다.
+        
+        <div style={{ lineHeight: '1.8', color: 'var(--ink-secondary)' }}>
+          <p style={{ marginBottom: '16px' }}>
+            <strong>문단</strong>은 글에서 <strong>생각이나 내용이 한 덩어리로 묶이는 부분</strong>을 말해요.
+          </p>
+          <div className="feature-card" style={{ marginBottom: '24px', background: 'var(--canvas-soft)' }}>
+            <h3 className="title" style={{ fontSize: '16px', marginBottom: '8px' }}>새로운 문단은 언제 시작할까요?</h3>
+            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+              <li>시간이나 장소가 바뀔 때</li>
+              <li>등장인물이 바뀔 때</li>
+              <li>이야기의 중심 내용이 바뀔 때</li>
+            </ul>
+          </div>
         </div>
 
         <button 
-          className="btn" 
-          style={{ width: '100%', marginTop: '10px' }}
+          className="btn-primary" 
+          style={{ width: '100%' }}
           onClick={onClose}
         >
-          알겠어요!
+          이해했어요!
         </button>
       </div>
     </div>

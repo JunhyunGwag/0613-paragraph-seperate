@@ -54,42 +54,14 @@ function Learning() {
         problem,
         userSplits: splitMarks,
         type: location.state.type,
-        level: location.state.level
+        level: location.state.level,
+        nickname: location.state.nickname
       }
     });
   };
 
   return (
     <div>
-      <button 
-        className="btn" 
-        style={{ marginBottom: '1rem', background: 'var(--text-muted)' }}
-        onClick={() => navigate('/')}
-      >
-        ← 뒤로 가기
-      </button>
-
-      <h1 style={{ color: 'var(--primary-dark)' }}>{problem.title}</h1>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
-        문맥이 바뀌는 곳을 찾아 문장 사이의 기호(<span>✂️</span>)를 클릭하여 문단을 나누어 보세요!
-      </p>
-
-      <div className="sentence-container" style={{ background: '#f9fafb', padding: '2rem', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
-        {problem.sentences.map((sentence, index) => {
-          const isSplitActive = splitMarks.includes(index);
-          const isFirstSentence = index === 0;
-
-          return (
-            <React.Fragment key={index}>
-              {/* 첫 문장이 아니면 문장 사이에 구분 기호 제공 */}
-              {!isFirstSentence && (
-                <span 
-                  className={`split-marker ${isSplitActive ? 'active' : ''}`}
-                  onClick={() => toggleSplit(index)}
-                  title="이곳을 클릭하여 문단을 나누세요"
-                >
-                  {isSplitActive ? '⏎ 문단 나누기' : '✂️'}
-                </span>
               )}
               
               {/* 구분 기호가 클릭되어 활성화된 경우 실제 줄바꿈(문단 분리) 효과 제공 */}

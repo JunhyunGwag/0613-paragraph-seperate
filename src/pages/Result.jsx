@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 function Result() {
   const location = useLocation();
@@ -20,53 +22,64 @@ function Result() {
     sortedUserSplits.length === sortedCorrectSplits.length &&
     sortedUserSplits.every((val, index) => val === sortedCorrectSplits[index]);
 
+  const hasSaved = useRef(false);
+
+  useEffect(() => {
+    const saveResult = async () => {
+      if (hasSaved.current || !location.state?.nickname) return;
+      hasSaved.current = true;
+
+      try {
+        await addDoc(collection(db, "learning_logs"), {
+          nickname: location.state.nickname,
+          problemId: problem.id,
+          isCorrect: isCorrect,
+          timestamp: serverTimestamp()
+        });
+      } catch (error) {
+        console.error("Error saving log: ", error);
+      }
+    };
+
+    saveResult();
+  }, [problem.id, isCorrect, location.state?.nickname]);
+
   const renderTextWithSplits = (sentences, splits, isCorrectAnswer) => {
     return (
-      <div className="sentence-container" style={{ 
-        background: isCorrectAnswer ? '#F0FDF4' : '#F9FAFB', 
-        padding: '1.5rem', 
-        borderRadius: '12px', 
-        border: `2px solid ${isCorrectAnswer ? '#4CAF50' : '#E5E7EB'}`,
-        fontSize: '1.1rem',
-        lineHeight: '2'
-      }}>
-        {sentences.map((sentence, index) => {
-          const hasSplitBefore = splits.includes(index);
-          return (
-            <React.Fragment key={index}>
-              {hasSplitBefore && (
-                <>
-                  <br/>
-                  <span style={{ color: isCorrectAnswer ? '#4CAF50' : 'var(--split-color)', fontWeight: 'bold', fontSize: '0.9rem' }}>
-                    [문단 나뉨]
+      <div className="feature-card" style={{ marginBottom: '24px', border: isCorrectAnswer ? '1px solid var(--primary)' : '1px solid var(--accent-pink)' }}>
+        <h3 className="title" style={{ color: isCorrectAnswer ? 'var(--primary)' : 'var(--accent-pink)', marginBottom: '16px' }}>
+          {isCorrectAnswer ? '정답' : '나의 답안'}
+        </h3>
+        <div style={{ fontSize: '16px', lineHeight: '2' }}>
+          {sentences.map((sentence, index) => {
+            const isSplit = splits.includes(index);
+            return (
+              <React.Fragment key={index}>
+                <span>{sentence}</span>
+                {index < sentences.length - 1 && isSplit && (
+                  <span style={{ color: isCorrectAnswer ? 'var(--primary)' : 'var(--accent-pink)', margin: '0 8px', fontWeight: 'bold' }}>
+                    ↵
                   </span>
-                  <br/>
-                </>
-              )}
-              <span>{sentence} </span>
-            </React.Fragment>
-          );
-        })}
+                )}
+                {isSplit && <br />}
+              </React.Fragment>
+            );
+          })}
+        </div>
       </div>
     );
   };
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center', color: isCorrect ? '#4CAF50' : '#F59E0B' }}>
-        {isCorrect ? '🎉 훌륭해요! 정답입니다!' : '👀 아쉽네요, 다시 한번 살펴볼까요?'}
-      </h1>
-
-      <div className="grid grid-cols-2" style={{ gap: '2rem', marginTop: '2rem' }}>
-        <div>
-          <h2 style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>내가 나눈 결과</h2>
-          {renderTextWithSplits(problem.sentences, sortedUserSplits, false)}
-        </div>
-        <div>
-          <h2 style={{ fontSize: '1.2rem', color: '#4CAF50' }}>올바른 정답</h2>
-          {renderTextWithSplits(problem.sentences, sortedCorrectSplits, true)}
-        </div>
+    <div className="container">
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h1 className="display" style={{ color: isCorrect ? 'var(--primary)' : 'var(--accent-pink)' }}>
+          {isCorrect ? '🎉 정답입니다!' : '😅 아쉽네요, 다시 도전해볼까요?'}
+        </h1>
       </div>
+
+      {renderTextWithSplits(problem.sentences, sortedCorrectSplits, true)}
+      {!isCorrect && renderTextWithSplits(problem.sentences, sortedUserSplits, false)}
 
       <div style={{ 
         marginTop: '2rem', 
