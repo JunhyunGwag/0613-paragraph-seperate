@@ -61,25 +61,74 @@ function Learning() {
   };
 
   return (
-    <div>
-              )}
-              
-              {/* 구분 기호가 클릭되어 활성화된 경우 실제 줄바꿈(문단 분리) 효과 제공 */}
-              {isSplitActive && <span className="paragraph-break"></span>}
-              
-              <span>{sentence} </span>
-            </React.Fragment>
-          );
-        })}
+    <div className="container">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+        <h2 className="heading">📖 문단 나누기 연습</h2>
+        <button 
+          className="btn-utility" 
+          onClick={() => navigate('/')}
+        >
+          돌아가기
+        </button>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div className="feature-card" style={{ marginBottom: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <h3 className="title">{problem.title}</h3>
+          <span style={{ color: 'var(--primary)', fontSize: '0.9rem', fontWeight: '500', background: 'rgba(0, 117, 222, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
+            {location.state.nickname} 님의 도전
+          </span>
+        </div>
+        <p style={{ margin: 0, color: 'var(--ink-muted)', marginBottom: '24px' }}>
+          글을 읽고 문단이 나뉘어야 할 곳을 클릭하세요. (총 {problem.correctSplits.length}곳)
+        </p>
+
+        <div style={{ fontSize: '16px', lineHeight: '2' }}>
+          {problem.sentences.map((sentence, index) => {
+            const isSplitActive = splitMarks.includes(index);
+            const isFirstSentence = index === 0;
+
+            return (
+              <React.Fragment key={index}>
+                {!isFirstSentence && (
+                  <span 
+                    className={`split-marker ${isSplitActive ? 'active' : ''}`}
+                    onClick={() => toggleSplit(index)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '24px',
+                      height: '24px',
+                      margin: '0 8px',
+                      cursor: 'pointer',
+                      borderRadius: '4px',
+                      background: isSplitActive ? 'var(--primary)' : 'var(--canvas-soft)',
+                      color: isSplitActive ? '#fff' : 'transparent',
+                      transition: 'all 0.2s',
+                      verticalAlign: 'middle'
+                    }}
+                    title="이곳을 클릭하여 문단을 나누세요"
+                  >
+                    ↵
+                  </span>
+                )}
+                
+                {isSplitActive && <br />}
+                
+                <span>{sentence}</span>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ textAlign: 'center' }}>
         <button 
-          className="btn" 
-          style={{ fontSize: '1.25rem', padding: '15px 40px' }}
+          className="btn-primary" 
           onClick={handleSubmit}
         >
-          정답 확인하기 ✔️
+          제출하기
         </button>
       </div>
     </div>
