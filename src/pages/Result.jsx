@@ -81,25 +81,22 @@ function Result() {
       {renderTextWithSplits(problem.sentences, sortedCorrectSplits, true)}
       {!isCorrect && renderTextWithSplits(problem.sentences, sortedUserSplits, false)}
 
-      <div style={{ 
-        marginTop: '2rem', 
-        padding: '2rem', 
-        background: '#EFF6FF', 
-        borderRadius: '16px',
-        borderLeft: '6px solid var(--split-color)'
+      <div className="feature-card" style={{ 
+        marginTop: '32px', 
+        background: 'var(--canvas-soft)', 
+        borderLeft: '4px solid var(--primary)'
       }}>
-        <h2 style={{ color: 'var(--split-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <h2 className="title" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
           👨‍🏫 선생님의 풀이
         </h2>
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
+        <p style={{ fontSize: '15px', lineHeight: '1.8', color: 'var(--ink-secondary)', margin: 0 }}>
           {problem.explanation}
         </p>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+      <div style={{ textAlign: 'center', marginTop: '48px' }}>
         <button 
-          className="btn" 
-          style={{ fontSize: '1.2rem', padding: '12px 30px' }}
+          className="btn-primary" 
           onClick={() => navigate('/')}
         >
           다른 문제 풀러 가기 🏠

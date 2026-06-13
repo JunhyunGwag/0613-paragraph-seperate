@@ -80,7 +80,7 @@ function Learning() {
           </span>
         </div>
         <p style={{ margin: 0, color: 'var(--ink-muted)', marginBottom: '24px' }}>
-          글을 읽고 문단이 나뉘어야 할 곳을 클릭하세요. (총 {problem.correctSplits.length}곳)
+          글을 읽고 문단이 나뉘어야 할 곳을 클릭하세요. (총 {problem.splitIndices.length}곳)
         </p>
 
         <div style={{ fontSize: '16px', lineHeight: '2' }}>
