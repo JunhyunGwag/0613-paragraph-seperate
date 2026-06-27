@@ -5,6 +5,7 @@ import Learning from './pages/Learning';
 import Result from './pages/Result';
 import ConceptModal from './components/ConceptModal';
 import EthicsGateModal from './components/EthicsGateModal';
+import Footer from './components/Footer';
 
 function App() {
   const [isEthicsModalOpen, setIsEthicsModalOpen] = useState(false);
@@ -23,18 +24,21 @@ function App() {
 
   return (
     <Router>
-      <div className="app-container">
+      <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         {isEthicsModalOpen && (
           <EthicsGateModal 
             onClose={() => {}} // 닫기 버튼으로 닫지 못하게 함
             onAccept={handleEthicsAccept}
           />
         )}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/learn" element={<Learning />} />
-          <Route path="/result" element={<Result />} />
-        </Routes>
+        <div style={{ flexGrow: 1 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/learn" element={<Learning />} />
+            <Route path="/result" element={<Result />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   );
