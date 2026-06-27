@@ -1,0 +1,146 @@
+.ethics-modal-card {
+  max-width: 800px !important;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ethics-header {
+  display: flex;
+  background-color: #f6a13d; /* Matching image header color */
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ethics-header-left {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  border-right: 1px solid white;
+  flex-shrink: 0;
+}
+
+.ethics-header-right {
+  flex-grow: 1;
+  padding: 16px;
+  text-align: center;
+}
+
+.ethics-content-scroll {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 0;
+}
+
+.ethics-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.ethics-row:last-child {
+  border-bottom: none;
+}
+
+.ethics-badges {
+  width: 140px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ethics-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 90px;
+}
+
+.ethics-badge.orange-outline {
+  color: #f6a13d;
+  border: 2px solid #f6a13d;
+  background-color: white;
+}
+
+.ethics-badge.green-fill {
+  color: white;
+  background-color: #63a968;
+  border: 2px solid #63a968;
+}
+
+.ethics-badge.blue-fill {
+  color: white;
+  background-color: #3b749d;
+  border: 2px solid #3b749d;
+}
+
+.ethics-badge.yellow-outline {
+  color: #e5b03b;
+  border: 2px solid #e5b03b;
+  background-color: white;
+}
+
+.ethics-text {
+  flex-grow: 1;
+  padding: 24px 24px 24px 0;
+}
+
+.ethics-title {
+  color: #f6a13d;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+/* Color adjustment for title based on row index can be handled but keeping it uniform orange matching the text in the image is fine, or we can use generic color. Actually in image, 가이드 5 is blue, 가이드 6 is yellow. */
+.ethics-row:nth-child(5) .ethics-title { color: #3b749d; }
+.ethics-row:nth-child(6) .ethics-title { color: #e5b03b; }
+
+.ethics-subtitle {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.ethics-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.ethics-footer {
+  padding: 24px;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+}
+
+.ethics-accept-btn {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 16px;
+  background: linear-gradient(135deg, #f6a13d 0%, #e5b03b 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(246, 161, 61, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ethics-accept-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(246, 161, 61, 0.4);
+}
